@@ -97,7 +97,6 @@ def outread (a,b,c):
             g=g+1
             l=0
         filex=open(str(a)+"/res.txt","a")
-        filex.write("cycle\ttemperature\tforsterite\tXanorthite\twollastonite-cpx\tentatite-opx\twollastonite-opx\tentatite-cpxwollastonite-pig\tentatite-pig")
         filex.write(str(mat[0])+"\t"+str(mat[1])+"\t"+str(mat[2])+"\t"+str(mat[3])+"\t"+str(mat[4])+"\t"+str(mat[5])+"\t"+str(mat[6])+"\t"+str(mat[7])+"\t"+str(mat[8])+"\n")
         filex.close()
     else:
@@ -119,6 +118,7 @@ def outread (a,b,c):
             g=g+1
             l=0
         filex=open(str(a)+"/res.txt","x")
+        filex.write("cycle\ttemperature\tforsterite\tXanorthite\twollastonite-cpx\tentatite-opx\twollastonite-opx\tentatite-cpxwollastonite-pig\tentatite-pig\n")
         filex.write(str(mat[0])+"\t"+str(mat[1])+"\t"+str(mat[2])+"\t"+str(mat[3])+"\t"+str(mat[4])+"\t"+str(mat[5])+"\t"+str(mat[6])+"\t"+str(mat[7])+"\t"+str(mat[8])+"\n")
         filex.close()
 def GMTplot (a):
@@ -220,6 +220,6 @@ file="comp.txt"
 # in the runner function
 # For Example: runner(fle,pmax,pmin,inc, wsl=False) would be appropriate to run it on Linux
 
-runner(file,pmax,pmin,inc,wsl=False)
+runner(file,pmax,pmin,inc)
 
 #Add Post-Processing (e.g. plotting function)
