@@ -5,6 +5,7 @@ import numpy as np
 import shutil
 import time
 import subprocess
+import pandas as pd
 
 
 def input(file,counter):
@@ -96,6 +97,7 @@ def outread (a,b,c):
             g=g+1
             l=0
         filex=open(str(a)+"/res.txt","a")
+        filex.write("cycle\ttemperature\tforsterite\tXanorthite\twollastonite-cpx\tentatite-opx\twollastonite-opx\tentatite-cpxwollastonite-pig\tentatite-pig")
         filex.write(str(mat[0])+"\t"+str(mat[1])+"\t"+str(mat[2])+"\t"+str(mat[3])+"\t"+str(mat[4])+"\t"+str(mat[5])+"\t"+str(mat[6])+"\t"+str(mat[7])+"\t"+str(mat[8])+"\n")
         filex.close()
     else:
@@ -199,6 +201,10 @@ def runner (File_Name,maxP,minP,inc,crx_rate=0.01,crx_max=0.99,wsl=True):
             outread(Sample_Folder,Pressure,Pressure)
             
         j=j+1
+def plot (file):
+     for Sample in file[0,1:]:
+        Sample_Folder="Results/"+str(Sample)
+        diagram_file=Sample_Folder+"/res.txt"
 
 # Conditions (see runner function)
 pmin=2
