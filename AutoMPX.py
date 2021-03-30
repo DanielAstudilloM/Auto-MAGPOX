@@ -42,14 +42,14 @@ def input(file,counter):
                 mat[4]=float(fileo[n,counter])
         if c.lower() in["MgO","mgo"]:
             if float(fr) in[0,0.0,0.00]:
-                mat[5]=0.0001
-            else:
-                mat[5]=float(fileo[n,counter])
-        if c.lower() in["MnO","mno"]:
-            if float(fr) in[0,0.0,0.00]:
                 mat[6]=0.0001
             else:
                 mat[6]=float(fileo[n,counter])
+        if c.lower() in["MnO","mno"]:
+            if float(fr) in[0,0.0,0.00]:
+                mat[5]=0.0001
+            else:
+                mat[5]=float(fileo[n,counter])
         if c.lower() in["CaO","cao"]:
             if float(fr) in[0,0.0,0.00]:
                 mat[7]=0.0001
@@ -66,7 +66,7 @@ def input(file,counter):
             else:
                 mat[9]=float(fileo[n,counter])
             #Fe2O3
-        if c.lower() in["feo"]:
+        if c.lower() in["fe2o3"]:
             if float(fr) in[0,0.0,0.00]:
                 mat[10]=0.0001
             else:
@@ -234,7 +234,7 @@ def plot (file):
 pmin=2
 pmax=30
 inc=2
-file="comp.txt"
+file="fe2o3.txt"
 
 # Steps and max crystallization are defaulted to 0.01 and 0.99 in the runner function, 
 # they can be adjusted by changing the default values of crx_rate and crx_max default values of the runner function
@@ -244,6 +244,6 @@ file="comp.txt"
 # in the runner function
 # For Example: runner(fle,pmax,pmin,inc, wsl=False) would be appropriate to run it on Linux
 
-# runner(file,pmax,pmin,inc)
+runner(file,pmax,pmin,inc)
 plot(file)
 #Add Post-Processing (e.g. plotting function)
