@@ -6,7 +6,7 @@ import shutil
 import time
 import subprocess
 import pandas as pd
-
+import matplotlib.pyplot as plt
 
 def input(file,counter):
     """Reads the composition and samples file and creates a variable containing the info to be written into a MAGPOX input file"""
@@ -118,7 +118,7 @@ def outread (a,b,c):
             g=g+1
             l=0
         filex=open(str(a)+"/res.txt","x")
-        filex.write("cycle\ttemperature\tforsterite\tXanorthite\twollastonite-cpx\tentatite-opx\twollastonite-opx\tentatite-cpxwollastonite-pig\tentatite-pig\n")
+        filex.write("pressure\tforsterite\tXanorthite\twollastonite-cpx\tenstatite-cpx\twollastonite-opx\tenstatite-opx\twollastonite-pig\tenstatite-pig\n")
         filex.write(str(mat[0])+"\t"+str(mat[1])+"\t"+str(mat[2])+"\t"+str(mat[3])+"\t"+str(mat[4])+"\t"+str(mat[5])+"\t"+str(mat[6])+"\t"+str(mat[7])+"\t"+str(mat[8])+"\n")
         filex.close()
 def GMTplot (a):
@@ -202,9 +202,30 @@ def runner (File_Name,maxP,minP,inc,crx_rate=0.01,crx_max=0.99,wsl=True):
             
         j=j+1
 def plot (file):
-     for Sample in file[0,1:]:
+     fileo=np.loadtxt(file,dtype='str',delimiter="\t",unpack=False)
+     for Sample in fileo[0,1:]:
         Sample_Folder="Results/"+str(Sample)
         diagram_file=Sample_Folder+"/res.txt"
+        diagram_dataframe=pd.read_csv(diagram_file,delimiter="\t")
+
+        pressure=diagram_dataframe.get("pressure").astype(float)*0.1
+        forsterite=diagram_dataframe.get("forsterite").astype(float)
+        anorthite=diagram_dataframe.get("Xanorthite").astype(float)
+        cpx=diagram_dataframe.get("wollastonite-cpx").astype(float)
+        opx=diagram_dataframe.get("wollastonite-opx").astype(float)
+        pig=diagram_dataframe.get("wollastonite-pig").astype(float)
+
+        fig=plt.figure()
+        plot1=fig.subplots()
+        plot1.plot(pressure,forsterite,"ro")
+        plot1.plot(pressure,anorthite,"yo")
+        plot1.plot(pressure,cpx,"go")
+        plot1.plot(pressure,opx,"o",color="purple")
+        plot1.plot(pressure,pig,"go")
+        plot1.set_ylim(1000,1700)
+        plt.show()
+
+
 
 # Conditions (see runner function)
 pmin=2
@@ -221,5 +242,5 @@ file="comp.txt"
 # For Example: runner(fle,pmax,pmin,inc, wsl=False) would be appropriate to run it on Linux
 
 runner(file,pmax,pmin,inc)
-
+plot(file)
 #Add Post-Processing (e.g. plotting function)
