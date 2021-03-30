@@ -7,3 +7,6 @@
 *.xtl
 *.code-workspace
 *.json
+*.jpg
+*.svg
+*.png

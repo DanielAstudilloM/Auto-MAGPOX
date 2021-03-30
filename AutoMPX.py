@@ -217,13 +217,16 @@ def plot (file):
 
         fig=plt.figure()
         plot1=fig.subplots()
-        plot1.plot(pressure,forsterite,"ro")
-        plot1.plot(pressure,anorthite,"yo")
-        plot1.plot(pressure,cpx,"go")
-        plot1.plot(pressure,opx,"o",color="purple")
-        plot1.plot(pressure,pig,"go")
+        plot1.plot(pressure,forsterite,"ro",label="Olivine")
+        plot1.plot(pressure,anorthite,"yo",label="Plagioclase")
+        plot1.plot(pressure,cpx,"go",label="Cpx")
+        plot1.plot(pressure,opx,"o",color="purple",label="Opx")
+        plot1.plot(pressure,pig,"go",label="Opx")
         plot1.set_ylim(1000,1700)
-        plt.show()
+        plot1.set_xlabel("Pressure (GPa)")
+        plot1.set_ylabel("Temperature (°C)")
+        plot1.set_title(Sample)
+        fig.savefig(Sample_Folder+"/diagram.png")
 
 
 
@@ -241,6 +244,6 @@ file="comp.txt"
 # in the runner function
 # For Example: runner(fle,pmax,pmin,inc, wsl=False) would be appropriate to run it on Linux
 
-runner(file,pmax,pmin,inc)
+# runner(file,pmax,pmin,inc)
 plot(file)
 #Add Post-Processing (e.g. plotting function)
